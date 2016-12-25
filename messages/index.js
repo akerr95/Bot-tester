@@ -18,7 +18,7 @@ console.log( process.env['MicrosoftAppId']);
 var bot = new builder.UniversalBot(connector);
 
 bot.dialog('/', function (session) {
-    session.send('You said ' + session.message.text);
+    session.send('Alec said ' + session.message.text);
 });
 
 if (useEmulator) {
