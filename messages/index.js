@@ -2,8 +2,9 @@
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 
-var useEmulator = (process.env.NODE_ENV == 'development');
+var useEmulator = (process.env.NODE_ENV === 'development');
 
+console.log(process.env.NODE_ENV);
 var connector = useEmulator ? new builder.ChatConnector({
     appId: process.env['MicrosoftAppId'],
     appPassword: process.env['MicrosoftAppPassword'],
@@ -14,31 +15,23 @@ var connector = useEmulator ? new builder.ChatConnector({
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-console.log( process.env['MicrosoftAppId']);
 var bot = new builder.UniversalBot(connector);
 
 bot.dialog('/', function (session) {
     session.send('Alec said ' + session.message.text);
 });
-
+function status(request,reply){
+     connector.listen(request.raw.req,request.raw.res);
+     return reply("ok");
+}
 if (useEmulator) {
-    var Hapi = require('hapi');
-    var server = Hapi.Server();
-    
-    server.connection({port:8080});
-    server.start((err) => {
-
-        if (err) {
-            throw err;
-        }
-
-        server.log('info', 'Server running at: ' + server.info.uri);
+     var restify = require('restify');
+    var server = restify.createServer();
+    server.listen(8080, function() {
+        console.log('test bot endpont at http://localhost:8080/api/messages');
     });
-    server.route({
-        method: "POST",
-        path:'/api/messages',
-        handle:connector.listen()
-    });
+    server.post('/api/messages', connector.listen());  
+   
 } else {
     module.exports = { default: connector.listen() }
 }
