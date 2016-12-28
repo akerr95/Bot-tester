@@ -6,13 +6,18 @@
   "dependencies": {
     "botbuilder": "^3.4.2",
     "botbuilder-azure": "0.0.1",
+    "botbuilder-cognitiveservices": "^1.0.0",
+    "good": "^7.1.0",
+    "good-console": "^6.2.0",
+    "good-squeeze": "^5.0.1",
     "hapi": "^16.0.2"
   },
   "devDependencies": {
     "restify": "^4.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development APPID=728f52ce-70cf-4c5c-9ed1-614cb2470736 PASSWORD=qaYQzktAPbhBrkeT3JMu1BG QnAKnowledgebaseId=26f447c1-72d4-48c0-84f9-23c5e881393b QnASubscriptionKey=7221b7a9d1064bae93e7a921f0a9dc7b node --inspect=5858 --debug-brk index.js",
+    "start": "NODE_ENV=development APPID=728f52ce-70cf-4c5c-9ed1-614cb2470736 PASSWORD=qaYQzktAPbhBrkeT3JMu1BG QnAKnowledgebaseId=26f447c1-72d4-48c0-84f9-23c5e881393b QnASubscriptionKey=7221b7a9d1064bae93e7a921f0a9dc7b node index.js"
   },
   "author": "",
   "license": "ISC"
